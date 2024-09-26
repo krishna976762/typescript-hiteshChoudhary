@@ -1,0 +1,105 @@
+In TypeScript, both `interface` and `type` can be used to define the shape of an object or a data structure, but they have some differences and unique features. Here are the key differences between `interface` and `type`:
+
+### Interface
+1. **Declaration Merging**: Interfaces can be merged, allowing you to extend them across multiple declarations.
+   ```typescript
+   interface Person {
+     name: string;
+   }
+
+   interface Person {
+     age: number;
+   }
+
+   const person: Person = {
+     name: "John",
+     age: 30,
+   };
+   ```
+2. **Extending**: Interfaces can extend other interfaces or types using the `extends` keyword.
+   ```typescript
+   interface Animal {
+     species: string;
+   }
+
+   interface Dog extends Animal {
+     bark: () => void;
+   }
+   ```
+3. **Implementing**: Classes can implement interfaces to ensure they adhere to a particular structure.
+   ```typescript
+   interface Flyable {
+     fly(): void;
+   }
+
+   class Bird implements Flyable {
+     fly() {
+       console.log("Flying");
+     }
+   }
+   ```
+
+### Type
+1. **Union and Intersection Types**: `type` can create union and intersection types, allowing more complex type definitions.
+   ```typescript
+   type A = { a: string };
+   type B = { b: number };
+
+   type C = A & B; // Intersection type
+   type D = A | B; // Union type
+   ```
+2. **Type Aliases**: `type` can alias any valid TypeScript type, including primitives, arrays, tuples, and other types.
+   ```typescript
+   type StringAlias = string;
+   type TupleAlias = [number, string];
+   ```
+3. **Cannot be Merged**: Unlike interfaces, types cannot be merged across multiple declarations.
+
+### Similarities
+- Both can define the shape of an object.
+- Both can be extended and composed, though with different syntaxes and capabilities.
+
+### Example Comparison
+Here's an example showing how similar shapes can be defined using both `interface` and `type`:
+
+#### Using Interface
+```typescript
+interface User {
+  name: string;
+  age: number;
+}
+
+interface Admin extends User {
+  isAdmin: boolean;
+}
+
+const admin: Admin = {
+  name: "Alice",
+  age: 28,
+  isAdmin: true,
+};
+```
+
+#### Using Type
+```typescript
+type User = {
+  name: string;
+  age: number;
+};
+
+type Admin = User & {
+  isAdmin: boolean;
+};
+
+const admin: Admin = {
+  name: "Alice",
+  age: 28,
+  isAdmin: true,
+};
+```
+
+### When to Use Which?
+- **Interface**: Use when you need to take advantage of declaration merging, extending classes, or when defining the shape of an object that might be extended in other parts of your code.
+- **Type**: Use when you need to create complex types, such as union or intersection types, or when you want to alias primitive types, arrays, tuples, etc.
+
+Choosing between `interface` and `type` often comes down to personal or team preference, as they can be used interchangeably for most object shapes.
